@@ -50,7 +50,11 @@ class DirectXHeadersConan(ConanFile):
 
         self.cpp_info.components["directx-headers"].libs = ["DirectX-Headers"]
         self.cpp_info.components["directx-headers"].set_property("cmake_target_name", "Microsoft::DirectX-Headers")
-        self.cpp_info.components["directx-headers"].includedirs = ["include", "include/wsl/stubs"]
+
+        if self.settings.os == "Windows":
+            self.cpp_info.components["directx-headers"].includedirs = ["include"]
+        else:
+            self.cpp_info.components["directx-headers"].includedirs = ["include", "include/wsl/stubs"]
 
         self.cpp_info.components["directx-guids"].libs = ["DirectX-Guids"]
         self.cpp_info.components["directx-guids"].set_property("cmake_target_name", "Microsoft::DirectX-Guids")
